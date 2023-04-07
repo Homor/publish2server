@@ -1,6 +1,6 @@
 {
   "name": "publish2server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "publish to server and refresh cdn.",
   "main": "dist/index.js",
   "scripts": {
