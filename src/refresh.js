@@ -1,11 +1,7 @@
-const http = require("http");
+const fetch = require("./fetch");
 
-function refresh(api_config, config) {
-
-    const data = JSON.stringify(config);
-
+function refresh(api_config) {
     return new Promise((resolve, reject) => {
-
         const options = {
             host: api_config.api_host,
             port: api_config.api_port,
@@ -16,24 +12,13 @@ function refresh(api_config, config) {
             }
         };
 
-        const req = http.request(options, (res) => {
-            res.setEncoding('utf8');
-            res.on('data', (chunk) => {
-                const data = typeof chunk =="string"?JSON.parse(chunk):chunk;
-                if (data.code == 10000) {
-                    resolve(data);
-                } else {
-                    reject(data);
-                }
-            });
-        });
-
-        req.on('error', (e) => {
-            reject(e)
-        });
-
-        req.write(data);
-        req.end();
+        fetch.post(options).then(data => {
+            if (data.code == 10000) {
+                resolve(data);
+            } else {
+                reject(data);
+            }
+        }).catch(err => { reject(err) })
     });
 }
 

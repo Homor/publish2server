@@ -20,6 +20,13 @@ const publishConfig = {
             },
             "hook": {
                 beforePush: {
+                    request: {
+                        hostname: 'http://localhost',
+                        port: "8848",
+                        path: 'api/secret',
+                        key: "key",
+                        appkey: "",
+                    },
                     log: {
                         text: "开始推送到服务器",
                         color: "red"

@@ -14,11 +14,17 @@ function question(title) {
 }
 
 async function input(title) {
-    return new Promise(async resolve=>{
+    return new Promise(async resolve => {
         const secret = await question(title);
-        resolve(secret);   
-        // line.close()
+        resolve(secret);
+
     })
 }
 
-module.exports = input;
+function closeInput() {
+    line.close()
+}
+
+module.exports = {
+    input, closeInput
+};

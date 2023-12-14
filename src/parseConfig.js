@@ -59,16 +59,29 @@ function footer() {
 }
 
 function parseHook(config) {
-    const { log, open, qrcode } = config || {};
+    const { log, open, qrcode,request } = config || {};
     let text = "";
     if (log && log.text) {
         // text += `console.log(chalk.${log.color || 'green'}("${log.text}"));`;
         text += `console.log("${log.text}");`;
-
     }
-    // if (qrcode && qrcode.text) {
-    //     text += `qrcode.generate('${qrcode.text}',{small: true});`;
-    // }
+
+
+    if (request) {
+        const { hostname,
+            port,
+            path,
+            key,
+            appkey
+        } = options;
+        if(appkey){
+            
+        }
+        // text += `qrcode.generate('${qrcode.text}',{small: true});`;
+    }
+    if (qrcode && qrcode.text) {
+        text += `qrcode.generate('${qrcode.text}',{small: true});`;
+    }
     if (open && open.url) {
         // text += `console.log(chalk.yellow("即将打开：${open.url}"));
         text += `console.log("即将打开：${open.url}");
@@ -106,7 +119,6 @@ function inputHandle(config, type) {
     const mi = mastInput[type];
     const keys = Object.keys(config);
     keys.forEach(key => {
-
         if (mi[key] && !config[key]) {
             if (key == 'password_dangerous') {
                     // 密码值不存在
@@ -171,6 +183,7 @@ function checkLabel(config) {
     })
     return config;
 };
+
 
 function parseConfig(config) {
     let { push, refresh } = config || defaultConfig;
