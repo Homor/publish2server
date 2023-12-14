@@ -1,13 +1,15 @@
 {
   "name": "publish2server",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "publish to server and refresh cdn.",
   "main": "dist/index.js",
+  "exports": "./dist/index.js",
   "scripts": {
     "build": "npx rollup -c config/rollup.config.mjs",
-    "publish": "npx rollup -c config/rollup.config.mjs",
-    "p": "node ./dist/index.js",
-    "p2": "node ./src/plus.js --config=demo-publish.config.js"
+    "test": "node ./src/index.js --config=demo-publish.config.js"
+  },
+  "bin": {
+    "p2s": "node ./dist/index.js"
   },
   "keywords": [
     "publish",
@@ -15,7 +17,8 @@
   ],
   "files": [
     "dist/",
-    "screenshot.png"
+    "screenshot.png",
+    "README.md"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
@@ -25,21 +28,20 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "rollup-plugin-terser": "^7.0.2",
+    "@babel/core": "^7.23.6",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "core-js": "^3.30.0",
-    "expect.js": "^0.3.1",
-    "mocha": "^3.5.3",
-    "nyc": "^13.1.0",
     "rollup": "^3.20.2"
   },
   "dependencies": {
     "opn": "^6.0.0",
     "ora": "^5.4.1",
-    "qrcode-terminal": "^0.12.0",
+    "scp2": "^0.5.0",
     "readline": "^1.3.0",
-    "scp2": "^0.5.0"
+    "qrcode-terminal": "^0.12.0"
   }
 }

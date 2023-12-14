@@ -3,6 +3,8 @@ import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
 import { babel } from '@rollup/plugin-babel';
 
+import { terser } from 'rollup-plugin-terser';  
+
 import pkg from '../package.json' assert { type: 'json' };
 
 const banner = `/*!
@@ -19,7 +21,7 @@ export default {
         name: pkg.name,
         banner: banner
     },
-    treeshake: false,
+    treeshake: true,
     plugins: [
         json(),
         nodeResolve({ preferBuiltins: true, browser: false }),
@@ -27,6 +29,7 @@ export default {
             ignoreDynamicRequires: true
         }),
         babel(),
+        terser() // 使用 Terser 进行压缩  
     ],
     onwarn(warning, warn) {
         if (warning.code == 'EVAL') return;
