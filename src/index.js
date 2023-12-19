@@ -90,8 +90,8 @@ function parseHook(config) {
             await sleep(open.delay || 1000);
             await opn(open.url);
         }
-        if (config && config.qrcode && config.qrcode.text) {
-            qrcode.generate(config.qrcode.text, { small: true });
+        if (config && config.qrcode && config.qrcode.value) {
+            qrcode.generate(config.qrcode.value, { small: true });
         }
         if (request && request.appkey) {
             const options = Object.assign(defaultRequest, request);
@@ -103,11 +103,15 @@ function parseHook(config) {
                 appkey
             } = options;
             const url = `${hostname}:${port}/${path}?${key}=${appkey}`
-            const fetchResult = await fetch.get(url);
-            if (fetchResult.code == 1000) {
-                console.log((`请求接口成功!!`));
-                return resolve(fetchResult.data || {});
-            } else {
+            try {
+                const fetchResult = await fetch.get(url);
+                if (fetchResult.code == 1000) {
+                    console.log((`请求接口成功!!`));
+                    return resolve(fetchResult.data || {});
+                } else {
+                    console.log((`请求接口失败!! ${options.hostname}:${options.port}/${options.path}?${options.key}=${options.appkey}`));
+                }
+            } catch (error) {
                 console.log((`请求接口失败!! ${options.hostname}:${options.port}/${options.path}?${options.key}=${options.appkey}`));
             }
         }
@@ -167,7 +171,6 @@ async function run(config) {
             currentData = { ...defaultConfig.push[0].currentData, ...currentData };
             const {
                 beforePush,
-                beforeInputSecret,
                 afterPush,
             } = hook;
 
@@ -183,18 +186,15 @@ async function run(config) {
             updateData = await inputHandle(currentData, "server");
             currentData = { ...currentData, ...updateData }
 
-            // 3. 输入密码前
-            await parseHook(beforeInputSecret);
-            // 4. 执行
+            // 3. 执行
             await pushHandle(currentData);
-            // 5. 执行完成后
+            // 4. 执行完成后
             await parseHook(afterPush);
-
         }
     } catch (error) {
         console.log((`${currentData.name}(${currentData.host}),发布失败`));
-        if (error.level) {
-            console.log((error.level));
+        if (error.level=="client-timeout") {
+            console.log("服务超时了");
         }
         return closeInput();
     }

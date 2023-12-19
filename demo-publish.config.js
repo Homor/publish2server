@@ -40,7 +40,7 @@ const publishConfig = {
                     },
                     qrcode: {
                         // 在终端生成二维码
-                        text: "https://account.aliyun.com/login/login.html"
+                        value: "https://account.aliyun.com/login/login.html"
                     },
                     open: {
                         delay: 2000,
@@ -67,7 +67,7 @@ const publishConfig = {
         //         "afterRefresh": {
         //             qrcode: {
         //                 // 在终端生成二维码
-        //                 text: "https://account.aliyun.com/login/login.html"
+        //                 value: "https://account.aliyun.com/login/login.html"
         //             },
         //             open: {
         //                 delay: 2000,

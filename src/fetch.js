@@ -10,9 +10,7 @@ function get(url) {
                 const result = "Not Found" == data ? {} : JSON.parse(data);
                 resolve(result);
             });
-
         }).on('error', (error) => {
-            console.error(error);
             reject(error);
         });
     })
