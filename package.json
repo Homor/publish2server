@@ -1,15 +1,11 @@
 {
   "name": "publish2server",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "publish to server and refresh cdn.",
   "main": "dist/index.js",
-  "exports": "./dist/index.js",
   "scripts": {
     "build": "npx rollup -c config/rollup.config.mjs",
     "test": "node ./src/index.js --config=demo-publish.config.js"
-  },
-  "bin": {
-    "p2s": "node ./dist/index.js"
   },
   "keywords": [
     "publish",
