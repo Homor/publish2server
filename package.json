@@ -1,6 +1,6 @@
 {
   "name": "publish2server",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "publish to server and refresh cdn.",
   "main": "dist/index.js",
   "scripts": {
@@ -21,7 +21,8 @@
   "files": [
     "dist/",
     "screenshot.png",
-    "README.md"
+    "README.md",
+    "demo-publish.config.js"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

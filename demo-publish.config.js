@@ -25,11 +25,10 @@ const publishConfig = {
                         port: "8848",
                         path: 'api/secret',
                         key: "key",
-                        appkey: "",
+                        appkey: "8.136.98.134",
                     },
                     log: {
                         text: "开始推送到服务器",
-                        color: "red"
                     }
                 },
                 afterPush: {

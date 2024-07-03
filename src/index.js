@@ -102,17 +102,17 @@ function parseHook(config) {
                 key,
                 appkey
             } = options;
-            const url = `${hostname}:${port}/${path}?${key}=${appkey}`
+            const url = `${hostname.match(/^http/)?hostname:'http://'+hostname}:${port}/${path}?${key}=${appkey}`;
             try {
                 const fetchResult = await fetch.get(url);
                 if (fetchResult.code == 1000) {
-                    console.log((`请求接口成功!!`));
                     return resolve(fetchResult.data || {});
                 } else {
                     console.log((`请求接口失败!! ${options.hostname}:${options.port}/${options.path}?${options.key}=${options.appkey}`));
                 }
             } catch (error) {
-                console.log((`请求接口失败!! ${options.hostname}:${options.port}/${options.path}?${options.key}=${options.appkey}`));
+                console.log(error);
+                console.log((`请求接口失败!!! ${options.hostname}:${options.port}/${options.path}?${options.key}=${options.appkey}`));
             }
         }
         resolve(null);
